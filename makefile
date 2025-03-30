@@ -1,2 +1,2 @@
 exec:
-	deno run main.ts
+	deno run --allow-env --allow-net --env-file main.ts 
