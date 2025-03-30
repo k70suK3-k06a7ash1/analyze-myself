@@ -12,26 +12,18 @@ const client = new GraphQLClient(GITHUB_API_URL, {
 
 async function main() {
   const query = gql`
-   query {
+query {
   viewer {
-    contributionsCollection {
+    contributionsCollection{
       contributionCalendar {
         totalContributions
-       
-        months {
-          firstDay
-          totalWeeks
+        weeks {
+          contributionDays {
+            contributionCount
+            date
+          }
         }
       }
-      totalCommitContributions
-      totalIssueContributions
-      totalPullRequestContributions
-      totalPullRequestReviewContributions
-      totalRepositoryContributions
-      totalRepositoriesWithContributedCommits
-      totalRepositoriesWithContributedIssues
-      totalRepositoriesWithContributedPullRequests
-      totalRepositoriesWithContributedPullRequestReviews
     }
   }
 }
@@ -39,7 +31,7 @@ async function main() {
 
   try {
     const data = await client.request(query);
-    console.log(data);
+    console.log(data.viewer.contributionsCollection.contributionCalendar.weeks);
   } catch (error) {
     console.error("Error fetching data:", error);
   }
