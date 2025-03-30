@@ -31,7 +31,9 @@ query {
 
   try {
     const data = await client.request(query);
-    console.log(data.viewer.contributionsCollection.contributionCalendar.weeks);
+    const commitPerDay = data.viewer.contributionsCollection.contributionCalendar.weeks.flatMap(e => e.contributionDays.map(e => [e.contributionCount, e.date]));
+
+    console.log({commitPerDay})
   } catch (error) {
     console.error("Error fetching data:", error);
   }
